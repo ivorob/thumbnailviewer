@@ -3,7 +3,7 @@
 
 #include <QListWidget>
 
-class ThumbnailView : public QListWidget {
+class ThumbnailView : public QListView {
     Q_OBJECT
 public:
     ThumbnailView(QWidget *parent = nullptr);

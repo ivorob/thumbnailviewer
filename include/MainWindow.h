@@ -4,18 +4,21 @@
 #include <QtWidgets>
 #include "ThumbnailView.h"
 
-class MainWindow : public QWidget {
+class MainWindow : public QSplitter {
     Q_OBJECT
 public:
     MainWindow(const QString& title, QWidget *parent = nullptr);
 private:
-    QFileSystemModel *createDataModel();
+    QFileSystemModel *createDataTreeModel();
+    QFileSystemModel *createDirectoryModel();
+
     void createDirectoryTree();
     void createThumbnailView();
     void initUi(const QString& title);
 private slots:
     void chooseNewDirectory(const QModelIndex& index);
 private:
+    QFileSystemModel *directoryTreeModel;
     QFileSystemModel *directoryModel;
     QTreeView *directoryTree;
     ThumbnailView *thumbnailView;
