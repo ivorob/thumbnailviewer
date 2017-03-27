@@ -1,4 +1,3 @@
-#include <QtWidgets>
 #include "MainWindow.h"
 
 MainWindow::MainWindow(const QString& title, QWidget *parent)
@@ -30,6 +29,9 @@ MainWindow::createDirectoryTree()
     this->directoryTree->hideColumn(1);
     this->directoryTree->hideColumn(2);
     this->directoryTree->hideColumn(3);
+
+    QObject::connect(this->directoryTree, SIGNAL(clicked(const QModelIndex&)), 
+            this, SLOT(chooseNewDirectory(const QModelIndex&)));
 }
 
 QFileSystemModel *
@@ -44,12 +46,22 @@ MainWindow::createDataModel()
 void
 MainWindow::createThumbnailView()
 {
-    this->thumbnailView = new QListWidget;
+    this->thumbnailView = new ThumbnailView;
     this->thumbnailView->setViewMode(QListWidget::IconMode);
     this->thumbnailView->setIconSize(QSize(200, 200));
     this->thumbnailView->setResizeMode(QListWidget::Adjust);
 
-    this->thumbnailView->addItem(new QListWidgetItem(QIcon("pictures/earth.jpg"), "Earth"));
-    this->thumbnailView->addItem(new QListWidgetItem(QIcon("pictures/space.jpg"), "Space"));
+    //this->thumbnailView->addItem(new QListWidgetItem(QIcon("pictures/earth.jpg"), "Earth"));
+    //this->thumbnailView->addItem(new QListWidgetItem(QIcon("pictures/space.jpg"), "Space"));
     this->thumbnailView->setSelectionMode(QAbstractItemView::NoSelection);
+}
+
+void
+MainWindow::chooseNewDirectory(const QModelIndex& index)
+{
+    QString directory = this->directoryModel->filePath(index);
+    if (QDir(directory).exists()) {
+        qDebug() << "Choose new directory: " << directory;
+        //TODO update data model
+    }
 }
