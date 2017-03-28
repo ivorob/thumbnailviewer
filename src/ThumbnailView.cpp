@@ -1,7 +1,6 @@
 #include <QPainter>
 #include <QWheelEvent>
 #include <QItemDelegate>
-#include <QDebug>
 #include "ThumbnailView.h"
 
 namespace {

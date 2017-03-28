@@ -42,7 +42,7 @@ MainWindow::createDataTreeModel()
 {
     this->directoryTreeModel = new QFileSystemModel;
     this->directoryTreeModel->setRootPath("/");
-    this->directoryTreeModel->setFilter(QDir::Dirs | QDir::NoDotAndDotDot);
+    this->directoryTreeModel->setFilter(QDir::AllDirs | QDir::NoDotAndDotDot | QDir::Drives);
     return this->directoryTreeModel;
 }
 

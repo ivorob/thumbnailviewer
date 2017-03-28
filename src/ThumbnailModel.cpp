@@ -8,9 +8,8 @@ ThumbnailModel::ThumbnailModel(const QRegExp& fileMask, QObject *parent)
 }
 
 ThumbnailModel::~ThumbnailModel() {
-    this->updateMutex.lock();
+    setStoppedFlag(true);
     this->updateFunction.waitForFinished();
-    this->updateMutex.unlock();
 }
 
 int
@@ -41,8 +40,26 @@ ThumbnailModel::updateDirectory(const QString& directory)
         this->icons.clear();
         endResetModel();
 
-        fillModel(directory);
+        setStoppedFlag(true);
+        this->updateFunction.waitForFinished();
+        setStoppedFlag(false);
+
+        this->updateFunction = QtConcurrent::run(this, &ThumbnailModel::fillModel, directory);
     }
+}
+
+void
+ThumbnailModel::setStoppedFlag(bool value)
+{
+    QMutexLocker locker(&this->mutex);
+    this->stopped = value;
+}
+
+bool
+ThumbnailModel::isNeedToStop() const
+{
+    QMutexLocker locker(&this->mutex);
+    return this->stopped;
 }
 
 void
@@ -58,18 +75,25 @@ ThumbnailModel::fillModel(const QString& directory)
 {
     QList<QIcon> iconList;
     QDirIterator it(directory);
+    size_t totalSize = 0;
     while (it.hasNext()) {
         const QString& filename = it.next();
         if (!this->fileMask.exactMatch(filename)) {
             continue;
         }
 
+        totalSize += QFile(filename).size();
 
         QPixmap pixmap(filename);
         iconList.push_back(QIcon(pixmap.scaled(200, 200, Qt::KeepAspectRatio)));
-        if (iconList.size() >= 50) {
+        if (totalSize > 15 *1024 * 1024) { //handle maximum 5Mb
             appendList(iconList);
             iconList.clear();
+            totalSize = 0;
+
+            if (isNeedToStop()) {
+                return;
+            }
         }
     }
 

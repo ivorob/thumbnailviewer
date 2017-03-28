@@ -16,12 +16,15 @@ public slots:
 private:
     void appendList(const QList<QIcon>& iconList);
     void fillModel(const QString& directory);
+    void setStoppedFlag(bool value);
+    bool isNeedToStop() const;
 private:
     QList<QIcon> icons;
     QRegExp fileMask;
     QFuture<void> updateFunction;
-    QMutex updateMutex;
     QString directory;
+    mutable QMutex mutex;
+    bool stopped;
 };
 
 #endif //__THUMBNAILVIEWER_THUMBNAIL_MODEL_H__
