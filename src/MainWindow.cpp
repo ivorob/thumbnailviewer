@@ -3,7 +3,7 @@
 MainWindow::MainWindow(const QString& title, QWidget *parent)
     : QSplitter(parent),
       directoryTreeModel(),
-      directoryModel(),
+      iconModel(),
       directoryTree(),
       thumbnailView()
 {
@@ -50,24 +50,19 @@ void
 MainWindow::createThumbnailView()
 {
     this->thumbnailView = new ThumbnailView(this);
+    this->thumbnailView->setWrapping(true);
     this->thumbnailView->setViewMode(QListWidget::IconMode);
     this->thumbnailView->setIconSize(QSize(200, 200));
-    this->thumbnailView->setUniformItemSizes(true);
-
-    this->thumbnailView->setRootIndex(QModelIndex());
-    this->thumbnailView->setModel(createDirectoryModel());
+    this->thumbnailView->setResizeMode(QListView::Adjust);
     this->thumbnailView->setSelectionMode(QAbstractItemView::NoSelection);
+    this->thumbnailView->setModel(createIconModel());
 }
 
-QFileSystemModel *
-MainWindow::createDirectoryModel()
+ThumbnailModel *
+MainWindow::createIconModel()
 {
-    this->directoryModel = new QFileSystemModel;
-    this->directoryModel->setFilter(QDir::Files);
-    this->directoryModel->setNameFilterDisables(false);
-    this->directoryModel->setNameFilters(QStringList() << 
-            "*.jpg" << "*.png" << "*.jpeg" << "*.bmp" << "*.xpm");
-    return this->directoryModel;
+    this->iconModel = new ThumbnailModel(QRegExp(".+\\.jpg|.+\\.png|.+\\.xpm", Qt::CaseInsensitive), this);
+    return this->iconModel;
 }
 
 void
@@ -75,6 +70,6 @@ MainWindow::chooseNewDirectory(const QModelIndex& index)
 {
     QString directory = this->directoryTreeModel->filePath(index);
     if (QDir(directory).exists()) {
-        this->thumbnailView->setRootIndex(this->directoryModel->setRootPath(directory));
+        this->iconModel->updateDirectory(directory);
     }
 }

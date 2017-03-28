@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include "ThumbnailView.h"
+#include "ThumbnailModel.h"
 
 class MainWindow : public QSplitter {
     Q_OBJECT
@@ -10,7 +11,7 @@ public:
     MainWindow(const QString& title, QWidget *parent = nullptr);
 private:
     QFileSystemModel *createDataTreeModel();
-    QFileSystemModel *createDirectoryModel();
+    ThumbnailModel *createIconModel();
 
     void createDirectoryTree();
     void createThumbnailView();
@@ -19,7 +20,7 @@ private slots:
     void chooseNewDirectory(const QModelIndex& index);
 private:
     QFileSystemModel *directoryTreeModel;
-    QFileSystemModel *directoryModel;
+    ThumbnailModel *iconModel;
     QTreeView *directoryTree;
     ThumbnailView *thumbnailView;
 };
