@@ -31,6 +31,7 @@ MainWindow::createDirectoryTree()
     this->directoryTree->hideColumn(1);
     this->directoryTree->hideColumn(2);
     this->directoryTree->hideColumn(3);
+    this->directoryTree->header()->hide();
 
     QObject::connect(this->directoryTree, SIGNAL(clicked(const QModelIndex&)), 
             this, SLOT(chooseNewDirectory(const QModelIndex&)));
@@ -74,7 +75,6 @@ MainWindow::chooseNewDirectory(const QModelIndex& index)
 {
     QString directory = this->directoryTreeModel->filePath(index);
     if (QDir(directory).exists()) {
-        this->directoryModel->setRootPath(directory);
-        this->thumbnailView->setRootIndex(this->directoryModel->index(directory));
+        this->thumbnailView->setRootIndex(this->directoryModel->setRootPath(directory));
     }
 }
