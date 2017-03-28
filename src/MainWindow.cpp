@@ -61,7 +61,7 @@ MainWindow::createThumbnailView()
 ThumbnailModel *
 MainWindow::createIconModel()
 {
-    this->iconModel = new ThumbnailModel(QRegExp(".+\\.jpg|.+\\.png|.+\\.xpm", Qt::CaseInsensitive), this);
+    this->iconModel = new ThumbnailModel(QRegExp(".+\\.jpg|.+\\.jpeg|.+\\.bmp", Qt::CaseInsensitive), this);
     return this->iconModel;
 }
 
