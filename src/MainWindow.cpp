@@ -52,7 +52,7 @@ MainWindow::createThumbnailView()
     this->thumbnailView = new ThumbnailView(this);
     this->thumbnailView->setViewMode(QListWidget::IconMode);
     this->thumbnailView->setIconSize(QSize(200, 200));
-    this->thumbnailView->setResizeMode(QListWidget::Adjust);
+    this->thumbnailView->setUniformItemSizes(true);
 
     this->thumbnailView->setRootIndex(QModelIndex());
     this->thumbnailView->setModel(createDirectoryModel());

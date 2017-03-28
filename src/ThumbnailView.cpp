@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <QWheelEvent>
 #include <QDebug>
 #include "ThumbnailView.h"
 
@@ -19,5 +20,18 @@ ThumbnailView::paintEvent(QPaintEvent *event)
         QPainter painter(this->viewport());
         painter.setFont(QFont("Times New Roman", 22));
         painter.drawText(rect(), Qt::AlignCenter, "No pictures to display");
+    }
+}
+
+void
+ThumbnailView::wheelEvent(QWheelEvent *event)
+{
+    const QSize& size = iconSize();
+    if (event->delta() > 0) {
+        setIconSize(QSize(std::min(size.height() + 50, 200),
+            std::min(size.width() + 50, 200)));
+    } else {
+        setIconSize(QSize(std::max(size.height() - 50, 50),
+            std::max(size.width() - 50, 50)));
     }
 }

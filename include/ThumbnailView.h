@@ -9,6 +9,8 @@ public:
     ThumbnailView(QWidget *parent = nullptr);
 
     void paintEvent(QPaintEvent *event) override;
+protected:
+    void wheelEvent(QWheelEvent *event) override;
 };
 
 #endif //__THUMBNAILVIEWER_THUMBNAIL_VIEW_H__
