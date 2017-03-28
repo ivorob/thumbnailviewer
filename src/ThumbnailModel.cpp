@@ -36,13 +36,13 @@ ThumbnailModel::updateDirectory(const QString& directory)
     if (this->directory != directory) {
         this->directory = directory;
 
-        beginResetModel();
-        this->icons.clear();
-        endResetModel();
-
         setStoppedFlag(true);
         this->updateFunction.waitForFinished();
         setStoppedFlag(false);
+
+        beginResetModel();
+        this->icons.clear();
+        endResetModel();
 
         this->updateFunction = QtConcurrent::run(this, &ThumbnailModel::fillModel, directory);
     }

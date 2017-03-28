@@ -23,5 +23,9 @@ INCLUDE_DIRECTORIES (${INCLUDE_DIR})
 
 FIND_PACKAGE (Qt5 COMPONENTS Widgets Concurrent)
 
+IF (Apple)
+    SET (CMAKE_OSX_ARCHITECTURES "x86_64;i386")
+ENDIF (Apple)
+
 ADD_EXECUTABLE (thumbnailviewer ${SOURCES} ${HEADERS})
 TARGET_LINK_LIBRARIES (thumbnailviewer Qt5::Widgets Qt5::Concurrent)
