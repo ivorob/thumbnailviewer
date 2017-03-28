@@ -4,6 +4,8 @@
 # windows building
 use cmake/cmake-gui to configure project
 for example (building using nmake):
-run development console for msvc++
-    cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release
-    nmake
+
+- run development console for msvc++
+- execute the following commands:
+    `cmake -G "NMake Makefiles" -DCMAKE_BUILD_TYPE=Release`
+    `nmake`
