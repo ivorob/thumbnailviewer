@@ -27,5 +27,5 @@ IF (Apple)
     SET (CMAKE_OSX_ARCHITECTURES "x86_64;i386")
 ENDIF (Apple)
 
-ADD_EXECUTABLE (thumbnailviewer ${SOURCES} ${HEADERS})
+ADD_EXECUTABLE (thumbnailviewer WIN32 ${SOURCES} ${HEADERS})
 TARGET_LINK_LIBRARIES (thumbnailviewer Qt5::Widgets Qt5::Concurrent)
