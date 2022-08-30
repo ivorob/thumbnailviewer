@@ -1,4 +1,5 @@
 #include <QPainter>
+#include <QPainterPath>
 #include <QWheelEvent>
 #include <QItemDelegate>
 #include "ThumbnailView.h"

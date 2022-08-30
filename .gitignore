@@ -1,7 +1,5 @@
-CMakeFiles/
-CMakeCache.txt
-*.cmake
 thumbnailviewer*
 Makefile
 *swp
 *~
+/build/
