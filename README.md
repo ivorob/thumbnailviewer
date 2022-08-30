@@ -1,7 +1,15 @@
-# macOS building
-    cmake . -DCMAKE_PREFIX_PATH=/Users/vim/Qt/5.6/clang_64/
-    make
-# windows building
+# Thumbnailviewer
+
+[![thumbnailviewer](https://github.com/ivorob/thumbnailviewer/actions/workflows/cmake.yml/badge.svg)](https://github.com/ivorob/thumbnailviewer/actions/workflows/cmake.yml)
+
+## macOS building
+    ```
+    mkdir build
+    cd build
+    cmake -G "Unix Makefiles" .. -DCMAKE_PREFIX_PATH=/path/Qt/5.6/clang_64/
+    cmake --build .
+    ```
+## Windows building
 use cmake/cmake-gui to configure project
 for example (building using nmake):
 
