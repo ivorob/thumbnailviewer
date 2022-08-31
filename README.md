@@ -2,6 +2,8 @@
 
 [![thumbnailviewer](https://github.com/ivorob/thumbnailviewer/actions/workflows/cmake.yml/badge.svg)](https://github.com/ivorob/thumbnailviewer/actions/workflows/cmake.yml)
 
+![thumbnailviewer screenshot](docs/thumbnailviewer_screenshot.png "Thumbnailviewer")
+
 ## macOS building
 
 ```
